@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TecnicTestApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="recipes">Recipes</string>
+    <string name="estimated_time">Estimated time:  %s</string>
+    <string name="hard">Difficulty: %s</string>
+    <string name="calories">Calories: %s</string>
+    <string name="carbohydrates">Carbohydrates: %s</string>
+    <string name="fats">Fats: %s</string>
+    <string name="proteins">Proteins: %s</string>
+</resources>
