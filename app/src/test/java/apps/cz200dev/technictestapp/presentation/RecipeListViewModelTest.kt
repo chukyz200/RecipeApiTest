@@ -1,24 +1,28 @@
 package apps.cz200dev.technictestapp.presentation
 
+import apps.cz200dev.technictestapp.data.RecipeRepository
+import apps.cz200dev.technictestapp.domain.GetRecipeListUseCase
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 
 
 @ExperimentalCoroutinesApi
-class RecipeListViewModelTest{
 
-    @Mock
-    private lateinit var quoteRepository: RecipeRepository
+class RecipeListViewModelTest {
 
-    lateinit var recipeDataSource: RecipeDataSource
+    @RelaxedMockK
+    private lateinit var recipeRepository: RecipeRepository
+
+    lateinit var getRecipeListUseCase: GetRecipeListUseCase
 
     @Before
-    fun setUp(){
-        MockitoAnnotations.initMocks(this)
-        recipeDataSource = recipeDataSource
+    fun setUp() {
+        MockKAnnotations.init(this)
+        getRecipeListUseCase = GetRecipeListUseCase(recipeRepository)
     }
+
 
 
 }
