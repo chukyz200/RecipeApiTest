@@ -18,6 +18,7 @@ import apps.cz200dev.technictestapp.utils.invisible
 import apps.cz200dev.technictestapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
