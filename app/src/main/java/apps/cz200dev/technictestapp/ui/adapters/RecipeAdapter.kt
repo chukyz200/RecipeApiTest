@@ -45,6 +45,7 @@ class RecipeAdapter(private val onItemClickListener: (RecipeItem) -> Unit) :
 
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val binding: ItemRecipeBinding =
             ItemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)

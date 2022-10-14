@@ -1,25 +1,23 @@
 package apps.cz200dev.technictestapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import apps.cz200dev.technictestapp.R
 import apps.cz200dev.technictestapp.core.Resource
 import apps.cz200dev.technictestapp.data.model.RecipeItem
 import apps.cz200dev.technictestapp.databinding.FragmentRecipeListBinding
-import apps.cz200dev.technictestapp.presenter.RecipeListViewModel
+import apps.cz200dev.technictestapp.presentation.RecipeListViewModel
 import apps.cz200dev.technictestapp.ui.adapters.RecipeAdapter
 import apps.cz200dev.technictestapp.utils.invisible
 import apps.cz200dev.technictestapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
@@ -36,8 +34,17 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         super.onViewCreated(view, savedInstanceState)
         //Bind the layout
         binding = FragmentRecipeListBinding.bind(view)
-
         initRecycler()
+    }
+
+    private fun searchViewListener(list: List<RecipeItem> = emptyList()) {
+        binding.svItems.addTextChangedListener {
+            mAdapter.apply {
+                submitList(list.filter { item ->
+                    item.name.uppercase().contains(it.toString().uppercase())
+                })
+            }
+        }
     }
 
 
@@ -53,10 +60,15 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
                     mAdapter.apply {
                         submitList(it.data)
                     }
+                    searchViewListener(it.data)
                 }
                 is Resource.Failure -> {
                     binding.progressbar.invisible()
-                    Toast.makeText(requireContext(), "An error has ocurred, try again!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "An error has ocurred, try again!",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
             }
@@ -66,7 +78,11 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     //Navigate to other screen
     private fun onClickRecipe(item: RecipeItem) {
         if (findNavController().currentDestination?.id == R.id.recipeListFragment) {
-            findNavController().navigate(RecipeListFragmentDirections.actionRecipeListFragmentToRecipeItemFragment(item))
+            findNavController().navigate(
+                RecipeListFragmentDirections.actionRecipeListFragmentToRecipeItemFragment(
+                    item
+                )
+            )
         }
     }
 

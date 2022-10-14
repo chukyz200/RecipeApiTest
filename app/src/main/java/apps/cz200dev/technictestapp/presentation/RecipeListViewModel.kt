@@ -1,4 +1,4 @@
-package apps.cz200dev.technictestapp.presenter
+package apps.cz200dev.technictestapp.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,6 @@ import apps.cz200dev.technictestapp.core.Resource
 import apps.cz200dev.technictestapp.data.model.RecipeItem
 import apps.cz200dev.technictestapp.domain.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
