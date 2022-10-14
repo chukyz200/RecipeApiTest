@@ -1,9 +1,6 @@
 package apps.cz200dev.technictestapp.di
 
-import apps.cz200dev.technictestapp.data.WebService
-import apps.cz200dev.technictestapp.data.model.RecipeItem
-import apps.cz200dev.technictestapp.domain.RecipeRepository
-import apps.cz200dev.technictestapp.domain.RecipeRepositoryImpl
+import apps.cz200dev.technictestapp.data.remote.RecipeClient
 import apps.cz200dev.technictestapp.utils.AppConstants.BASE_URL
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -31,16 +28,8 @@ object AppModule {
     //Provide the webService
     @Singleton
     @Provides
-    fun provideWebService(retrofit: Retrofit): WebService = retrofit.create(WebService::class.java)
+    fun provideWebService(retrofit: Retrofit): RecipeClient = retrofit.create(RecipeClient::class.java)
 
-    //Provide the dataclass
-    @Singleton
-    @Provides
-    fun provideRecipeModel(): RecipeItem = RecipeItem()
 
-    //Provide the repository
-    @Singleton
-    @Provides
-    fun provideRecipeRepository(repository: RecipeRepositoryImpl): RecipeRepository = repository
 
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import apps.cz200dev.technictestapp.core.Resource
 import apps.cz200dev.technictestapp.data.model.RecipeItem
-import apps.cz200dev.technictestapp.domain.RecipeRepository
+import apps.cz200dev.technictestapp.domain.GetRecipeListUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class RecipeListViewModel @Inject constructor(private val repo: RecipeRepository) :
+class RecipeListViewModel @Inject constructor(private val getRecipeListUserCase: GetRecipeListUserCase) :
     ViewModel() {
 
     private val _recipes: MutableLiveData<Resource<List<RecipeItem>>> = MutableLiveData()
@@ -29,7 +29,7 @@ class RecipeListViewModel @Inject constructor(private val repo: RecipeRepository
     private fun getRecipes() =
         viewModelScope.launch() {
             kotlin.runCatching {
-                Resource.Success(repo.getRecipeList())
+                Resource.Success(getRecipeListUserCase.invoke())
             }.onSuccess {
                 _recipes.value = it
             }.onFailure { exception ->
